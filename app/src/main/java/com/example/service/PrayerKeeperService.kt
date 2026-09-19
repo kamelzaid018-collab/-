@@ -101,10 +101,6 @@ class PrayerKeeperService : Service() {
         } catch (e: Exception) {
             // Ignore
         }
-        
-        // If killed, attempt to self-restart
-        val restartIntent = Intent(applicationContext, PrayerKeeperService::class.java)
-        startService(restartIntent)
     }
 
     companion object {

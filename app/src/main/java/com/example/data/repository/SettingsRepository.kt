@@ -324,37 +324,37 @@ class SettingsRepository(private val context: Context) {
     }
 
     fun setNotificationBarEnabled(enabled: Boolean) {
-        prefs.edit().putBoolean(KEY_NOTIF_BAR_ENABLED, enabled).apply()
+        prefs.edit().putBoolean(KEY_NOTIF_BAR_ENABLED, enabled).commit()
         _isNotificationBarEnabled.value = enabled
     }
 
     fun setNotificationBarStyle(style: String) {
-        prefs.edit().putString(KEY_NOTIF_BAR_STYLE, style).apply()
+        prefs.edit().putString(KEY_NOTIF_BAR_STYLE, style).commit()
         _notificationBarStyle.value = style
     }
 
     fun setNotificationCountdownEnabled(enabled: Boolean) {
-        prefs.edit().putBoolean(KEY_NOTIF_COUNTDOWN, enabled).apply()
+        prefs.edit().putBoolean(KEY_NOTIF_COUNTDOWN, enabled).commit()
         _isNotificationCountdownEnabled.value = enabled
     }
 
     fun setNotificationHijriEnabled(enabled: Boolean) {
-        prefs.edit().putBoolean(KEY_NOTIF_HIJRI, enabled).apply()
+        prefs.edit().putBoolean(KEY_NOTIF_HIJRI, enabled).commit()
         _isNotificationHijriEnabled.value = enabled
     }
 
     fun setWidgetHijriEnabled(enabled: Boolean) {
-        prefs.edit().putBoolean(KEY_WIDGET_HIJRI, enabled).apply()
+        prefs.edit().putBoolean(KEY_WIDGET_HIJRI, enabled).commit()
         _isWidgetHijriEnabled.value = enabled
     }
 
     fun setWidgetLocationEnabled(enabled: Boolean) {
-        prefs.edit().putBoolean(KEY_WIDGET_LOC, enabled).apply()
+        prefs.edit().putBoolean(KEY_WIDGET_LOC, enabled).commit()
         _isWidgetLocationEnabled.value = enabled
     }
 
     fun setWidgetThemeStyle(theme: String) {
-        prefs.edit().putString(KEY_WIDGET_THEME, theme).apply()
+        prefs.edit().putString(KEY_WIDGET_THEME, theme).commit()
         _widgetThemeStyle.value = theme
     }
 

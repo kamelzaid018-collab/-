@@ -886,6 +886,82 @@ fun NotificationAndWidgetsScreen(
                             }
                         }
                     }
+
+                    // Theme & Style Selector (Classic Aqsa vs Al-Huda Maroon One UI)
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFF06231E)),
+                        shape = RoundedCornerShape(16.dp),
+                        border = BorderStroke(1.dp, AqsaGold.copy(alpha = 0.4f))
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Text(
+                                text = if (lang.isRtl) "اختيار مظهر الودجت وشريط الإشعارات" else "Widget & Notification Style",
+                                color = AqsaGold,
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = if (lang.isRtl) "اختر بين النمط الكلاسيكي الأخضر ونمط مسجد الهُدى البني الفاخر" else "Choose between Classic Emerald and Al-Huda Maroon style",
+                                color = Color.LightGray,
+                                fontSize = 12.sp
+                            )
+
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                // Classic Emerald
+                                Button(
+                                    onClick = {
+                                        viewModel.settingsRepo.setWidgetThemeStyle("EMERALD")
+                                        viewModel.settingsRepo.setNotificationBarStyle("DETAILED")
+                                        PrayerAppWidgetProvider.updateAllWidgets(context)
+                                        PrayerNotificationHelper.updatePersistentNotification(context)
+                                        Toast.makeText(context, if (lang.isRtl) "تم تفعيل النمط الكلاسيكي الأخضر ✓" else "Classic Emerald Enabled ✓", Toast.LENGTH_SHORT).show()
+                                    },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = if (widgetTheme != "ALHUDA") AqsaGold else Color(0xFF031411)
+                                    ),
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Text(
+                                        text = if (lang.isRtl) "الأخضر الكلاسيكي" else "Classic Emerald",
+                                        color = if (widgetTheme != "ALHUDA") Color.Black else Color.White,
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+
+                                // Al-Huda Maroon
+                                Button(
+                                    onClick = {
+                                        viewModel.settingsRepo.setWidgetThemeStyle("ALHUDA")
+                                        viewModel.settingsRepo.setNotificationBarStyle("ALHUDA")
+                                        PrayerAppWidgetProvider.updateAllWidgets(context)
+                                        PrayerNotificationHelper.updatePersistentNotification(context)
+                                        Toast.makeText(context, if (lang.isRtl) "تم تفعيل نمط مسجد الهُدى البني الفاخر ✓" else "Al-Huda Maroon Enabled ✓", Toast.LENGTH_SHORT).show()
+                                    },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = if (widgetTheme == "ALHUDA") Color(0xFF8A2D35) else Color(0xFF3B0D12)
+                                    ),
+                                    border = BorderStroke(1.dp, AqsaGold),
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Text(
+                                        text = if (lang.isRtl) "مسجد الهُدى (البني)" else "Al-Huda Maroon",
+                                        color = Color.White,
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
             }
 

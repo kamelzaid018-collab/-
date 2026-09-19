@@ -52,6 +52,11 @@ class PrayerAppWidgetProvider : AppWidgetProvider() {
                 for (widgetId in appWidgetIds) {
                     updateAppWidget(context, appWidgetManager, widgetId)
                 }
+                val intent = Intent(context, PrayerAppWidgetProvider::class.java).apply {
+                    action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                    putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
+                }
+                context.sendBroadcast(intent)
             } catch (e: Exception) {
                 Log.e(TAG, "Error updating widgets: ${e.message}")
             }
@@ -138,25 +143,48 @@ class PrayerAppWidgetProvider : AppWidgetProvider() {
                     return sdf.format(cal.time)
                 }
 
-                val views = RemoteViews(context.packageName, R.layout.widget_prayer_times)
+                val widgetTheme = settingsRepo.widgetThemeStyle.value
+                val layoutId = if (widgetTheme == "ALHUDA") R.layout.widget_prayer_times_alhuda else R.layout.widget_prayer_times
+                val views = RemoteViews(context.packageName, layoutId)
 
                 // Location & Hijri Date
                 views.setTextViewText(
                     R.id.widget_location_name,
-                    if (isLocEnabled) "مواقيت الصلاة • ${loc.nameAr}" else "مواقيت الصلاة"
+                    if (widgetTheme == "ALHUDA") {
+                        if (isLocEnabled) "مسجد • ${loc.nameAr}" else "مواقيت الصلاة"
+                    } else {
+                        if (isLocEnabled) "مواقيت الصلاة • ${loc.nameAr}" else "مواقيت الصلاة"
+                    }
                 )
                 if (isHijriEnabled) {
-                    views.setTextViewText(R.id.widget_hijri_date, "${result.hijriDay} ${result.hijriMonthNameAr} ${result.hijriYear}هـ")
+                    val hijriText = if (widgetTheme == "ALHUDA") {
+                        val dayOfWeekStr = SimpleDateFormat("EEEE", Locale("ar")).format(nowCal.time)
+                        "$dayOfWeekStr ${result.hijriDay} ${result.hijriMonthNameAr} ${result.hijriYear}هـ"
+                    } else {
+                        "${result.hijriDay} ${result.hijriMonthNameAr} ${result.hijriYear}هـ"
+                    }
+                    views.setTextViewText(R.id.widget_hijri_date, hijriText)
                 } else {
                     views.setTextViewText(R.id.widget_hijri_date, result.gregorianDateText)
                 }
 
                 // Next prayer title & countdown
-                views.setTextViewText(R.id.widget_next_prayer_title, "🕌 القادمة: $nextPrayerName")
-                views.setTextViewText(
-                    R.id.widget_next_prayer_countdown,
-                    String.format(Locale.US, "%02d:%02d:%02d", hoursLeft, minsLeft, secsLeft)
-                )
+                if (widgetTheme == "ALHUDA") {
+                    views.setTextViewText(R.id.widget_next_prayer_countdown, String.format(Locale.US, "%02d:%02d", hoursLeft, minsLeft))
+                    val timeSdf = SimpleDateFormat(if (timeFormat == TimeFormatPreference.FORMAT_24H) "HH:mm" else "hh:mm", Locale.US)
+                    timeSdf.timeZone = TimeZone.getTimeZone(tzId)
+                    val amPmSdf = SimpleDateFormat("a", Locale("ar"))
+                    amPmSdf.timeZone = TimeZone.getTimeZone(tzId)
+                    views.setTextViewText(R.id.widget_digital_time, timeSdf.format(nowCal.time))
+                    views.setTextViewText(R.id.widget_digital_ampm, amPmSdf.format(nowCal.time))
+                    views.setTextViewText(R.id.widget_salawat_text, "الصلاة على النبي ﷺ: يتبقى ${String.format(Locale.US, "%02d:%02d", hoursLeft, minsLeft)}")
+                } else {
+                    views.setTextViewText(R.id.widget_next_prayer_title, "🕌 القادمة: $nextPrayerName")
+                    views.setTextViewText(
+                        R.id.widget_next_prayer_countdown,
+                        String.format(Locale.US, "%02d:%02d:%02d", hoursLeft, minsLeft, secsLeft)
+                    )
+                }
 
                 // 6 Prayer times
                 val isFriday = nowCal.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY

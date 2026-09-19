@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#F0031411"
+    android:background="#031411"
     android:padding="10dp">
 
     <!-- Top Banner: Calligraphy & City + Hijri Date -->
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="end"
-            android:background="#604A0E13"
+            android:background="#4A0E13"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp">
 
@@ -73,26 +73,27 @@
         android:layout_height="1dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
-        android:background="#40E5C158" />
+        android:background="#E5C158" />
 
     <!-- 6 Prayers Islamic Arched Row (الفجر، الشروق، الظهر، العصر، المغرب، العشاء) -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:weightSum="6">
 
         <!-- Fajr -->
         <LinearLayout
             android:id="@+id/widget_box_fajr"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="#400F172A"
-            android:padding="2dp">
+            android:background="#0F172A"
+            android:padding="6dp"
+            android:layout_marginEnd="2dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -114,13 +115,13 @@
         <LinearLayout
             android:id="@+id/widget_box_sunrise"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="#40042F2E"
-            android:layout_marginStart="2dp"
-            android:padding="2dp">
+            android:background="#042F2E"
+            android:padding="6dp"
+            android:layout_marginEnd="2dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -142,13 +143,13 @@
         <LinearLayout
             android:id="@+id/widget_box_dhuhr"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="#40064E3B"
-            android:layout_marginStart="2dp"
-            android:padding="2dp">
+            android:background="#064E3B"
+            android:padding="6dp"
+            android:layout_marginEnd="2dp">
             <TextView
                 android:id="@+id/widget_title_dhuhr"
                 android:layout_width="wrap_content"
@@ -171,13 +172,13 @@
         <LinearLayout
             android:id="@+id/widget_box_asr"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="#60451A03"
-            android:layout_marginStart="2dp"
-            android:padding="2dp">
+            android:background="#451A03"
+            android:padding="6dp"
+            android:layout_marginEnd="2dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -199,13 +200,13 @@
         <LinearLayout
             android:id="@+id/widget_box_maghrib"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="#40450A0A"
-            android:layout_marginStart="2dp"
-            android:padding="2dp">
+            android:background="#450A0A"
+            android:padding="6dp"
+            android:layout_marginEnd="2dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -227,13 +228,12 @@
         <LinearLayout
             android:id="@+id/widget_box_isha"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="#401E1B4B"
-            android:layout_marginStart="2dp"
-            android:padding="2dp">
+            android:background="#1E1B4B"
+            android:padding="6dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

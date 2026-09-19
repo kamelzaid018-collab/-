@@ -135,17 +135,23 @@ object PrayerNotificationHelper {
                 "Fajr ${formatTime(result.fajrMillis)} | Dhuhr ${formatTime(result.dhuhrMillis)} | Asr ${formatTime(result.asrMillis)} | Maghrib ${formatTime(result.maghribMillis)} | Isha ${formatTime(result.ishaMillis)}"
             }
 
-            val bigTextContent = buildString {
-                if (hijriDateStr.isNotBlank()) {
-                    append("📅 $hijriDateStr | 📍 ${loc.nameAr}\n")
-                }
-                append("• ${AppStrings.getPrayerName(PrayerType.FAJR, lang)}: ${formatTime(result.fajrMillis)}\n")
-                append("• ${AppStrings.getPrayerName(PrayerType.SUNRISE, lang)}: ${formatTime(result.sunriseMillis)}\n")
-                append("• ${AppStrings.getPrayerName(PrayerType.DHUHR, lang)}: ${formatTime(result.dhuhrMillis)}\n")
-                append("• ${AppStrings.getPrayerName(PrayerType.ASR, lang)}: ${formatTime(result.asrMillis)}\n")
-                append("• ${AppStrings.getPrayerName(PrayerType.MAGHRIB, lang)}: ${formatTime(result.maghribMillis)}\n")
-                append("• ${AppStrings.getPrayerName(PrayerType.ISHA, lang)}: ${formatTime(result.ishaMillis)}")
+            val alHudaTitle = if (lang.isRtl) {
+                "مسجد ${loc.nameAr} • القادمة: $nextPrayerName (${String.format("%02d:%02d", hoursLeft, minsLeft)})"
+            } else {
+                "${loc.nameAr} • Next: $nextPrayerName (in ${String.format("%02dh %02dm", hoursLeft, minsLeft)})"
             }
+            val alHudaBigText = buildString {
+                append("{ وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا }\n")
+                if (hijriDateStr.isNotBlank()) {
+                    append("📅 $hijriDateStr\n")
+                }
+                append("• الفجر: ${formatTime(result.fajrMillis)} | الشروق: ${formatTime(result.sunriseMillis)} | الظهر: ${formatTime(result.dhuhrMillis)}\n")
+                append("• العصر: ${formatTime(result.asrMillis)} | المغرب: ${formatTime(result.maghribMillis)} | العشاء: ${formatTime(result.ishaMillis)}\n")
+                append("🤲 الصلاة على النبي ﷺ: مستمرة")
+            }
+
+            val finalTitle = if (notifStyle == "ALHUDA") alHudaTitle else title
+            val finalContent = if (notifStyle == "ALHUDA") alHudaBigText else summaryLine
 
             // Create notification channel
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -174,16 +180,16 @@ object PrayerNotificationHelper {
 
             val builder = NotificationCompat.Builder(context, CHANNEL_ID_PERSISTENT)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(title)
-                .setContentText(summaryLine)
+                .setContentTitle(finalTitle)
+                .setContentText(finalContent)
                 .setContentIntent(pendingOpen)
                 .setOngoing(true)
                 .setOnlyAlertOnce(true)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
 
-            if (notifStyle == "DETAILED") {
-                builder.setStyle(NotificationCompat.BigTextStyle().bigText(bigTextContent))
+            if (notifStyle == "DETAILED" || notifStyle == "ALHUDA") {
+                builder.setStyle(NotificationCompat.BigTextStyle().bigText(finalContent))
             } else {
                 builder.setStyle(NotificationCompat.BigTextStyle().bigText(summaryLine))
             }
