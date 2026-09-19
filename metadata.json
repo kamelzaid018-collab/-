@@ -1,0 +1,6 @@
+{
+  "name": "Prayer Times & Azan",
+  "description": "Electronic mosque clock style prayer times, customizable azan, unlimited alerts, Ramadan tools, and Salawat reminders.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
