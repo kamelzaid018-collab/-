@@ -90,7 +90,11 @@ class SettingsRepository(private val context: Context) {
     private val _isNotificationBarEnabled = MutableStateFlow(prefs.getBoolean(KEY_NOTIF_BAR_ENABLED, true))
     val isNotificationBarEnabled: StateFlow<Boolean> = _isNotificationBarEnabled.asStateFlow()
 
-    private val _notificationBarStyle = MutableStateFlow(prefs.getString(KEY_NOTIF_BAR_STYLE, "DETAILED") ?: "DETAILED")
+    private val _notificationBarStyle = MutableStateFlow(
+        prefs.getString(KEY_NOTIF_BAR_STYLE, "BOARD")?.let {
+            if (it == "DETAILED" || it == "ALHUDA" || it == "BOARD") "BOARD" else it
+        } ?: "BOARD"
+    )
     val notificationBarStyle: StateFlow<String> = _notificationBarStyle.asStateFlow()
 
     private val _isNotificationCountdownEnabled = MutableStateFlow(prefs.getBoolean(KEY_NOTIF_COUNTDOWN, true))
@@ -105,7 +109,11 @@ class SettingsRepository(private val context: Context) {
     private val _isWidgetLocationEnabled = MutableStateFlow(prefs.getBoolean(KEY_WIDGET_LOC, true))
     val isWidgetLocationEnabled: StateFlow<Boolean> = _isWidgetLocationEnabled.asStateFlow()
 
-    private val _widgetThemeStyle = MutableStateFlow(prefs.getString(KEY_WIDGET_THEME, "EMERALD") ?: "EMERALD")
+    private val _widgetThemeStyle = MutableStateFlow(
+        prefs.getString(KEY_WIDGET_THEME, "BOARD")?.let {
+            if (it == "EMERALD" || it == "ALHUDA" || it == "BOARD") "BOARD" else it
+        } ?: "BOARD"
+    )
     val widgetThemeStyle: StateFlow<String> = _widgetThemeStyle.asStateFlow()
 
     private fun loadLanguage(): Language {

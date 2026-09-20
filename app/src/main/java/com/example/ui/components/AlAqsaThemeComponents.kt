@@ -899,3 +899,239 @@ private fun BottomNavItem(
         }
     }
 }
+
+@Composable
+fun IslamicMihrabPrayerBoard(
+    fajrTime: String,
+    sunriseTime: String,
+    dhuhrTime: String,
+    asrTime: String,
+    maghribTime: String,
+    ishaTime: String,
+    nextPrayerType: PrayerType?,
+    countdownText: String?,
+    isFriday: Boolean,
+    lang: Language,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        color = Color(0xFF041914),
+        shape = RoundedCornerShape(22.dp),
+        border = BorderStroke(1.2.dp, Brush.verticalGradient(listOf(AqsaGold, Color(0xFF8A6D2B), Color(0xFF1E1706)))),
+        shadowElevation = 8.dp,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 12.dp)
+        ) {
+            // Header: "مَوَاقِيتُ الصَّلَاة" with golden ornament
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 2.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("🏮", fontSize = 16.sp)
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = if (lang.isRtl) "مَوَاقِيتُ الصَّلَاةِ" else "Prayer Times Board",
+                        color = AqsaGoldLight,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                nextPrayerType?.let { next ->
+                    val nextName = AppStrings.getPrayerName(next, lang, isFriday)
+                    Text(
+                        text = if (lang.isRtl) "القادمة: $nextName" else "Next: $nextName",
+                        color = Color(0xFFFDE68A),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // 6 Arched Mihrab Cards
+            androidx.compose.foundation.lazy.LazyRow(
+                modifier = Modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(horizontal = 10.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                val isMiddayActive = nextPrayerType == PrayerType.DHUHR || nextPrayerType == PrayerType.JUMUAH
+
+                item {
+                    IslamicMihrabCard(
+                        prayerName = AppStrings.getPrayerName(PrayerType.FAJR, lang, isFriday),
+                        icon = "🌙",
+                        timeText = fajrTime,
+                        remainingText = if (nextPrayerType == PrayerType.FAJR) countdownText ?: "--:--" else null,
+                        isActive = nextPrayerType == PrayerType.FAJR,
+                        archColor = Color(0xFF0F172A),
+                        borderColor = Color(0xFF38BDF8),
+                        lang = lang
+                    )
+                }
+                item {
+                    IslamicMihrabCard(
+                        prayerName = AppStrings.getPrayerName(PrayerType.SUNRISE, lang, isFriday),
+                        icon = "🌅",
+                        timeText = sunriseTime,
+                        remainingText = null,
+                        isActive = false,
+                        archColor = Color(0xFF042F2E),
+                        borderColor = Color(0xFF2DD4BF),
+                        lang = lang
+                    )
+                }
+                item {
+                    IslamicMihrabCard(
+                        prayerName = if (isFriday) (if (lang.isRtl) "الجمعة" else "Jumu'ah") else (if (lang.isRtl) "الظهر" else "Dhuhr"),
+                        icon = "☀️",
+                        timeText = dhuhrTime,
+                        remainingText = if (isMiddayActive) countdownText ?: "--:--" else null,
+                        isActive = isMiddayActive,
+                        archColor = Color(0xFF064E3B),
+                        borderColor = Color(0xFF34D399),
+                        lang = lang
+                    )
+                }
+                item {
+                    IslamicMihrabCard(
+                        prayerName = AppStrings.getPrayerName(PrayerType.ASR, lang, isFriday),
+                        icon = "🌤️",
+                        timeText = asrTime,
+                        remainingText = if (nextPrayerType == PrayerType.ASR) countdownText ?: "--:--" else null,
+                        isActive = nextPrayerType == PrayerType.ASR,
+                        archColor = Color(0xFF451A03),
+                        borderColor = AqsaGold,
+                        lang = lang
+                    )
+                }
+                item {
+                    IslamicMihrabCard(
+                        prayerName = AppStrings.getPrayerName(PrayerType.MAGHRIB, lang, isFriday),
+                        icon = "🌇",
+                        timeText = maghribTime,
+                        remainingText = if (nextPrayerType == PrayerType.MAGHRIB) countdownText ?: "--:--" else null,
+                        isActive = nextPrayerType == PrayerType.MAGHRIB,
+                        archColor = Color(0xFF450A0A),
+                        borderColor = Color(0xFFF87171),
+                        lang = lang
+                    )
+                }
+                item {
+                    IslamicMihrabCard(
+                        prayerName = AppStrings.getPrayerName(PrayerType.ISHA, lang, isFriday),
+                        icon = "🌙",
+                        timeText = ishaTime,
+                        remainingText = if (nextPrayerType == PrayerType.ISHA) countdownText ?: "--:--" else null,
+                        isActive = nextPrayerType == PrayerType.ISHA,
+                        archColor = Color(0xFF1E1B4B),
+                        borderColor = Color(0xFFA78BFA),
+                        lang = lang
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun IslamicMihrabCard(
+    prayerName: String,
+    icon: String,
+    timeText: String,
+    remainingText: String?,
+    isActive: Boolean,
+    archColor: Color,
+    borderColor: Color,
+    lang: Language
+) {
+    Box(
+        modifier = Modifier
+            .width(102.dp)
+            .height(148.dp)
+            .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp, bottomStart = 14.dp, bottomEnd = 14.dp))
+            .background(
+                Brush.verticalGradient(
+                    listOf(
+                        archColor.copy(alpha = if (isActive) 0.95f else 0.72f),
+                        Color(0xFF020B09)
+                    )
+                )
+            )
+            .border(
+                BorderStroke(
+                    width = if (isActive) 2.2.dp else 1.dp,
+                    color = if (isActive) AqsaGold else borderColor.copy(alpha = 0.55f)
+                ),
+                RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp, bottomStart = 14.dp, bottomEnd = 14.dp)
+            )
+            .padding(horizontal = 6.dp, vertical = 8.dp)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            // Top: Icon + Prayer Name
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = icon,
+                    fontSize = 18.sp,
+                    modifier = Modifier.padding(top = 1.dp)
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = prayerName,
+                    color = if (isActive) AqsaGoldLight else Color(0xFFE2E8F0),
+                    fontSize = 13.sp,
+                    fontWeight = if (isActive) FontWeight.ExtraBold else FontWeight.Bold
+                )
+            }
+
+            // Center: Big Prayer Time
+            Text(
+                text = timeText,
+                color = if (isActive) AqsaGold else Color.White,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Black
+            )
+
+            // Bottom: Remaining Time or Indicator
+            if (isActive && remainingText != null) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(AqsaGold.copy(alpha = 0.25f))
+                        .border(0.8.dp, AqsaGold, RoundedCornerShape(10.dp))
+                        .padding(vertical = 2.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = remainingText,
+                        color = AqsaGoldLight,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Monospace
+                    )
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(0.6f)
+                        .height(3.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(if (isActive) AqsaGold else borderColor.copy(alpha = 0.35f))
+                )
+            }
+        }
+    }
+}

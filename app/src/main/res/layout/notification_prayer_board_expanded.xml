@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget_root"
+    android:id="@+id/notif_board_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/bg_board_frame"
-    android:padding="10dp">
+    android:padding="8dp">
 
     <!-- Top Calligraphy & Dates Header -->
     <LinearLayout
@@ -13,31 +13,31 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginBottom="6dp">
+        android:layout_marginBottom="4dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="مَـوَاقِـيـتُ الصَّـلَاة"
             android:textColor="#F3E5AB"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/widget_location_name"
+            android:id="@+id/notif_location_and_gregorian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cairo, Egypt • الأحد 20 سبتمبر 2026"
             android:textColor="#D1D5DB"
-            android:textSize="11sp" />
+            android:textSize="10sp" />
 
         <TextView
-            android:id="@+id/widget_hijri_date"
+            android:id="@+id/notif_hijri_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="8 ربيع الآخر 1448هـ"
             android:textColor="#E5C158"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -58,29 +58,29 @@
 
             <!-- Fajr -->
             <LinearLayout
-                android:id="@+id/widget_card_fajr"
+                android:id="@+id/card_fajr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:background="@drawable/bg_card_fajr"
-                android:paddingVertical="6dp"
+                android:paddingVertical="5dp"
                 android:paddingHorizontal="2dp"
-                android:layout_marginHorizontal="2dp">
+                android:layout_marginHorizontal="1.5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🌙"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="فجر"
                     android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -88,19 +88,19 @@
                     android:layout_height="wrap_content"
                     android:text="Fajr"
                     android:textColor="#94A3B8"
-                    android:textSize="8sp" />
+                    android:textSize="7sp" />
 
                 <TextView
-                    android:id="@+id/widget_time_fajr"
+                    android:id="@+id/notif_time_fajr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="04:52"
                     android:textColor="#FFFFFF"
-                    android:textSize="11sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/widget_ampm_fajr"
+                    android:id="@+id/notif_ampm_fajr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="AM"
@@ -110,30 +110,29 @@
 
             <!-- Dhuhr -->
             <LinearLayout
-                android:id="@+id/widget_card_dhuhr"
+                android:id="@+id/card_dhuhr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:background="@drawable/bg_card_dhuhr"
-                android:paddingVertical="6dp"
+                android:paddingVertical="5dp"
                 android:paddingHorizontal="2dp"
-                android:layout_marginHorizontal="2dp">
+                android:layout_marginHorizontal="1.5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="☀️"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/widget_title_dhuhr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ظهر"
                     android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -141,19 +140,19 @@
                     android:layout_height="wrap_content"
                     android:text="Dhuhr"
                     android:textColor="#E2E8F0"
-                    android:textSize="8sp" />
+                    android:textSize="7sp" />
 
                 <TextView
-                    android:id="@+id/widget_time_dhuhr"
+                    android:id="@+id/notif_time_dhuhr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="11:51"
                     android:textColor="#FFFFFF"
-                    android:textSize="11sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/widget_ampm_dhuhr"
+                    android:id="@+id/notif_ampm_dhuhr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="AM"
@@ -163,29 +162,29 @@
 
             <!-- Asr -->
             <LinearLayout
-                android:id="@+id/widget_card_asr"
+                android:id="@+id/card_asr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:background="@drawable/bg_card_asr"
-                android:paddingVertical="6dp"
+                android:paddingVertical="5dp"
                 android:paddingHorizontal="2dp"
-                android:layout_marginHorizontal="2dp">
+                android:layout_marginHorizontal="1.5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🌴"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="عصر"
                     android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -193,19 +192,19 @@
                     android:layout_height="wrap_content"
                     android:text="Asr"
                     android:textColor="#CBD5E1"
-                    android:textSize="8sp" />
+                    android:textSize="7sp" />
 
                 <TextView
-                    android:id="@+id/widget_time_asr"
+                    android:id="@+id/notif_time_asr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="03:07"
                     android:textColor="#FFFFFF"
-                    android:textSize="11sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/widget_ampm_asr"
+                    android:id="@+id/notif_ampm_asr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="PM"
@@ -215,29 +214,29 @@
 
             <!-- Maghrib -->
             <LinearLayout
-                android:id="@+id/widget_card_maghrib"
+                android:id="@+id/card_maghrib"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:background="@drawable/bg_card_maghrib"
-                android:paddingVertical="6dp"
+                android:paddingVertical="5dp"
                 android:paddingHorizontal="2dp"
-                android:layout_marginHorizontal="2dp">
+                android:layout_marginHorizontal="1.5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🌅"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="مغرب"
                     android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -245,19 +244,19 @@
                     android:layout_height="wrap_content"
                     android:text="Maghrib"
                     android:textColor="#CBD5E1"
-                    android:textSize="8sp" />
+                    android:textSize="7sp" />
 
                 <TextView
-                    android:id="@+id/widget_time_maghrib"
+                    android:id="@+id/notif_time_maghrib"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="05:28"
                     android:textColor="#FFFFFF"
-                    android:textSize="11sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/widget_ampm_maghrib"
+                    android:id="@+id/notif_ampm_maghrib"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="PM"
@@ -267,29 +266,29 @@
 
             <!-- Isha -->
             <LinearLayout
-                android:id="@+id/widget_card_isha"
+                android:id="@+id/card_isha"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:background="@drawable/bg_card_isha"
-                android:paddingVertical="6dp"
+                android:paddingVertical="5dp"
                 android:paddingHorizontal="2dp"
-                android:layout_marginHorizontal="2dp">
+                android:layout_marginHorizontal="1.5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="✨"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="عشاء"
                     android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -297,19 +296,19 @@
                     android:layout_height="wrap_content"
                     android:text="Isha"
                     android:textColor="#CBD5E1"
-                    android:textSize="8sp" />
+                    android:textSize="7sp" />
 
                 <TextView
-                    android:id="@+id/widget_time_isha"
+                    android:id="@+id/notif_time_isha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="06:47"
                     android:textColor="#FFFFFF"
-                    android:textSize="11sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/widget_ampm_isha"
+                    android:id="@+id/notif_ampm_isha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="PM"
@@ -335,18 +334,18 @@
                 android:textSize="9sp" />
 
             <TextView
-                android:id="@+id/widget_digital_time"
+                android:id="@+id/notif_current_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10:30 AM"
                 android:textColor="#FDE68A"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <!-- Analog Clock Circle -->
             <LinearLayout
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:background="@drawable/bg_clock_circle"
                 android:gravity="center"
                 android:layout_marginVertical="2dp">
@@ -354,11 +353,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="⏱️"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/widget_next_prayer_title"
+                android:id="@+id/notif_next_prayer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="الصلاة القادمة: الظهر"
@@ -367,12 +366,12 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/widget_next_prayer_countdown"
+                android:id="@+id/notif_next_prayer_countdown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="متبقي: 01:21"
                 android:textColor="#67E8F9"
-                android:textSize="10sp"
+                android:textSize="9sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
@@ -385,8 +384,8 @@
         android:gravity="center_vertical"
         android:background="@drawable/bg_salawat_badge"
         android:paddingHorizontal="8dp"
-        android:paddingVertical="5dp"
-        android:layout_marginTop="6dp">
+        android:paddingVertical="4dp"
+        android:layout_marginTop="5dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -399,14 +398,14 @@
                 android:layout_height="wrap_content"
                 android:text="التذكير القادم بالصلاة على النبي ﷺ"
                 android:textColor="#CBD5E1"
-                android:textSize="10sp" />
+                android:textSize="9sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="صَلُّوا عَلَيْهِ وَسَلِّمُوا تَسْلِيمًا"
                 android:textColor="#FDE68A"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -417,16 +416,16 @@
             android:orientation="horizontal"
             android:background="@drawable/bg_digit_box"
             android:paddingHorizontal="8dp"
-            android:paddingVertical="3dp"
+            android:paddingVertical="2dp"
             android:gravity="center">
 
             <TextView
-                android:id="@+id/widget_salawat_text"
+                android:id="@+id/notif_salawat_countdown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="04 : 15"
                 android:textColor="#FDE68A"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>

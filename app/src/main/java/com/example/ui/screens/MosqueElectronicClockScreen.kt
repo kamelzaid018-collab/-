@@ -128,58 +128,17 @@ fun MosqueElectronicClockScreen(
 
             prayerTimes?.let { times ->
                 val nextType = nextPrayerInfo?.prayerType
-
                 item {
-                    PrayerRowItem(
-                        prayerType = PrayerType.FAJR,
-                        timeText = viewModel.formatTime(times.fajrMillis, timeFormat, lang),
-                        isNext = nextType == PrayerType.FAJR,
-                        lang = lang
-                    )
-                }
-
-                item {
-                    PrayerRowItem(
-                        prayerType = PrayerType.SUNRISE,
-                        timeText = viewModel.formatTime(times.sunriseMillis, timeFormat, lang),
-                        isNext = false,
-                        lang = lang
-                    )
-                }
-
-                item {
-                    val middayType = if (isFriday) PrayerType.JUMUAH else PrayerType.DHUHR
-                    PrayerRowItem(
-                        prayerType = middayType,
-                        timeText = viewModel.formatTime(times.dhuhrMillis, timeFormat, lang),
-                        isNext = nextType == middayType || nextType == PrayerType.DHUHR,
-                        lang = lang
-                    )
-                }
-
-                item {
-                    PrayerRowItem(
-                        prayerType = PrayerType.ASR,
-                        timeText = viewModel.formatTime(times.asrMillis, timeFormat, lang),
-                        isNext = nextType == PrayerType.ASR,
-                        lang = lang
-                    )
-                }
-
-                item {
-                    PrayerRowItem(
-                        prayerType = PrayerType.MAGHRIB,
-                        timeText = viewModel.formatTime(times.maghribMillis, timeFormat, lang),
-                        isNext = nextType == PrayerType.MAGHRIB,
-                        lang = lang
-                    )
-                }
-
-                item {
-                    PrayerRowItem(
-                        prayerType = PrayerType.ISHA,
-                        timeText = viewModel.formatTime(times.ishaMillis, timeFormat, lang),
-                        isNext = nextType == PrayerType.ISHA,
+                    IslamicMihrabPrayerBoard(
+                        fajrTime = viewModel.formatTime(times.fajrMillis, timeFormat, lang),
+                        sunriseTime = viewModel.formatTime(times.sunriseMillis, timeFormat, lang),
+                        dhuhrTime = viewModel.formatTime(times.dhuhrMillis, timeFormat, lang),
+                        asrTime = viewModel.formatTime(times.asrMillis, timeFormat, lang),
+                        maghribTime = viewModel.formatTime(times.maghribMillis, timeFormat, lang),
+                        ishaTime = viewModel.formatTime(times.ishaMillis, timeFormat, lang),
+                        nextPrayerType = nextType,
+                        countdownText = nextPrayerInfo?.countdownText,
+                        isFriday = isFriday,
                         lang = lang
                     )
                 }

@@ -144,7 +144,11 @@ class PrayerAppWidgetProvider : AppWidgetProvider() {
                 }
 
                 val widgetTheme = settingsRepo.widgetThemeStyle.value
-                val layoutId = if (widgetTheme == "ALHUDA") R.layout.widget_prayer_times_alhuda else R.layout.widget_prayer_times
+                val layoutId = when (widgetTheme) {
+                    "ALHUDA" -> R.layout.widget_prayer_times_alhuda
+                    "EMERALD" -> R.layout.widget_prayer_times
+                    else -> R.layout.widget_prayer_times_board
+                }
                 val views = RemoteViews(context.packageName, layoutId)
 
                 // Location & Hijri Date
@@ -152,12 +156,16 @@ class PrayerAppWidgetProvider : AppWidgetProvider() {
                     R.id.widget_location_name,
                     if (widgetTheme == "ALHUDA") {
                         if (isLocEnabled) "مسجد • ${loc.nameAr}" else "مواقيت الصلاة"
+                    } else if (widgetTheme == "BOARD") {
+                        val dayOfWeekStr = SimpleDateFormat("EEEE", Locale("ar")).format(nowCal.time)
+                        val gregStr = SimpleDateFormat("d MMMM yyyy", Locale("ar")).format(nowCal.time)
+                        if (isLocEnabled) "${loc.nameAr} • اليوم: $dayOfWeekStr $gregStr" else "مواقيت الصلاة • $dayOfWeekStr $gregStr"
                     } else {
                         if (isLocEnabled) "مواقيت الصلاة • ${loc.nameAr}" else "مواقيت الصلاة"
                     }
                 )
                 if (isHijriEnabled) {
-                    val hijriText = if (widgetTheme == "ALHUDA") {
+                    val hijriText = if (widgetTheme == "ALHUDA" || widgetTheme == "BOARD") {
                         val dayOfWeekStr = SimpleDateFormat("EEEE", Locale("ar")).format(nowCal.time)
                         "$dayOfWeekStr ${result.hijriDay} ${result.hijriMonthNameAr} ${result.hijriYear}هـ"
                     } else {
@@ -178,6 +186,43 @@ class PrayerAppWidgetProvider : AppWidgetProvider() {
                     views.setTextViewText(R.id.widget_digital_time, timeSdf.format(nowCal.time))
                     views.setTextViewText(R.id.widget_digital_ampm, amPmSdf.format(nowCal.time))
                     views.setTextViewText(R.id.widget_salawat_text, "الصلاة على النبي ﷺ: يتبقى ${String.format(Locale.US, "%02d:%02d", hoursLeft, minsLeft)}")
+                } else if (widgetTheme == "BOARD") {
+                    val timeSdf = SimpleDateFormat(if (timeFormat == TimeFormatPreference.FORMAT_24H) "HH:mm" else "hh:mm a", Locale.US)
+                    timeSdf.timeZone = TimeZone.getTimeZone(tzId)
+                    views.setTextViewText(R.id.widget_digital_time, timeSdf.format(nowCal.time))
+                    views.setTextViewText(R.id.widget_next_prayer_title, "الصلاة القادمة: $nextPrayerName")
+                    views.setTextViewText(R.id.widget_next_prayer_countdown, "متبقي: ${String.format(Locale.US, "%02d:%02d", hoursLeft, minsLeft)}")
+                    views.setTextViewText(R.id.widget_salawat_text, String.format(Locale.US, "%02d : %02d", hoursLeft, minsLeft))
+
+                    // AM/PM labels for board
+                    fun formatAmPmStr(ms: Long): String {
+                        if (timeFormat == TimeFormatPreference.FORMAT_24H) return ""
+                        val cal = Calendar.getInstance(TimeZone.getTimeZone(tzId)).apply { timeInMillis = ms }
+                        val sdf = SimpleDateFormat("a", Locale.US)
+                        sdf.timeZone = TimeZone.getTimeZone(tzId)
+                        return sdf.format(cal.time)
+                    }
+                    views.setTextViewText(R.id.widget_ampm_fajr, formatAmPmStr(result.fajrMillis))
+                    views.setTextViewText(R.id.widget_ampm_dhuhr, formatAmPmStr(result.dhuhrMillis))
+                    views.setTextViewText(R.id.widget_ampm_asr, formatAmPmStr(result.asrMillis))
+                    views.setTextViewText(R.id.widget_ampm_maghrib, formatAmPmStr(result.maghribMillis))
+                    views.setTextViewText(R.id.widget_ampm_isha, formatAmPmStr(result.ishaMillis))
+
+                    // Highlight next prayer card
+                    views.setInt(R.id.widget_card_fajr, "setBackgroundResource", R.drawable.bg_card_fajr)
+                    views.setInt(R.id.widget_card_dhuhr, "setBackgroundResource", R.drawable.bg_card_dhuhr)
+                    views.setInt(R.id.widget_card_asr, "setBackgroundResource", R.drawable.bg_card_asr)
+                    views.setInt(R.id.widget_card_maghrib, "setBackgroundResource", R.drawable.bg_card_maghrib)
+                    views.setInt(R.id.widget_card_isha, "setBackgroundResource", R.drawable.bg_card_isha)
+
+                    when (nextPrayerType) {
+                        PrayerType.FAJR -> views.setInt(R.id.widget_card_fajr, "setBackgroundResource", R.drawable.bg_card_active)
+                        PrayerType.DHUHR -> views.setInt(R.id.widget_card_dhuhr, "setBackgroundResource", R.drawable.bg_card_active)
+                        PrayerType.ASR -> views.setInt(R.id.widget_card_asr, "setBackgroundResource", R.drawable.bg_card_active)
+                        PrayerType.MAGHRIB -> views.setInt(R.id.widget_card_maghrib, "setBackgroundResource", R.drawable.bg_card_active)
+                        PrayerType.ISHA -> views.setInt(R.id.widget_card_isha, "setBackgroundResource", R.drawable.bg_card_active)
+                        else -> {}
+                    }
                 } else {
                     views.setTextViewText(R.id.widget_next_prayer_title, "🕌 القادمة: $nextPrayerName")
                     views.setTextViewText(

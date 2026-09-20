@@ -911,53 +911,81 @@ fun NotificationAndWidgetsScreen(
                                 fontSize = 12.sp
                             )
 
-                            Row(
+                            Column(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
-                                // Classic Emerald
+                                // Ornate Islamic Board (The new requested theme)
                                 Button(
                                     onClick = {
-                                        viewModel.settingsRepo.setWidgetThemeStyle("EMERALD")
-                                        viewModel.settingsRepo.setNotificationBarStyle("DETAILED")
+                                        viewModel.settingsRepo.setWidgetThemeStyle("BOARD")
+                                        viewModel.settingsRepo.setNotificationBarStyle("BOARD")
                                         PrayerAppWidgetProvider.updateAllWidgets(context)
                                         PrayerNotificationHelper.updatePersistentNotification(context)
-                                        Toast.makeText(context, if (lang.isRtl) "تم تفعيل النمط الكلاسيكي الأخضر ✓" else "Classic Emerald Enabled ✓", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(context, if (lang.isRtl) "تم تفعيل لوحة المواقيت الفاخرة لشريط الإشعارات والودجت ✓" else "Ornate Board Enabled ✓", Toast.LENGTH_SHORT).show()
                                     },
                                     colors = ButtonDefaults.buttonColors(
-                                        containerColor = if (widgetTheme != "ALHUDA") AqsaGold else Color(0xFF031411)
+                                        containerColor = if (widgetTheme == "BOARD") Color(0xFF1E2748) else Color(0xFF0D1124)
                                     ),
-                                    modifier = Modifier.weight(1f)
+                                    border = BorderStroke(if (widgetTheme == "BOARD") 2.dp else 1.dp, AqsaGold),
+                                    modifier = Modifier.fillMaxWidth()
                                 ) {
                                     Text(
-                                        text = if (lang.isRtl) "الأخضر الكلاسيكي" else "Classic Emerald",
-                                        color = if (widgetTheme != "ALHUDA") Color.Black else Color.White,
-                                        fontSize = 12.sp,
+                                        text = if (lang.isRtl) "🌟 لوحة المواقيت الفاخرة (الكحلي والذهبي مع الأقواس)" else "🌟 Ornate Prayer Board (Navy & Gold)",
+                                        color = AqsaGold,
+                                        fontSize = 13.sp,
                                         fontWeight = FontWeight.Bold
                                     )
                                 }
 
-                                // Al-Huda Maroon
-                                Button(
-                                    onClick = {
-                                        viewModel.settingsRepo.setWidgetThemeStyle("ALHUDA")
-                                        viewModel.settingsRepo.setNotificationBarStyle("ALHUDA")
-                                        PrayerAppWidgetProvider.updateAllWidgets(context)
-                                        PrayerNotificationHelper.updatePersistentNotification(context)
-                                        Toast.makeText(context, if (lang.isRtl) "تم تفعيل نمط مسجد الهُدى البني الفاخر ✓" else "Al-Huda Maroon Enabled ✓", Toast.LENGTH_SHORT).show()
-                                    },
-                                    colors = ButtonDefaults.buttonColors(
-                                        containerColor = if (widgetTheme == "ALHUDA") Color(0xFF8A2D35) else Color(0xFF3B0D12)
-                                    ),
-                                    border = BorderStroke(1.dp, AqsaGold),
-                                    modifier = Modifier.weight(1f)
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
-                                    Text(
-                                        text = if (lang.isRtl) "مسجد الهُدى (البني)" else "Al-Huda Maroon",
-                                        color = Color.White,
-                                        fontSize = 12.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
+                                    // Classic Emerald
+                                    Button(
+                                        onClick = {
+                                            viewModel.settingsRepo.setWidgetThemeStyle("EMERALD")
+                                            viewModel.settingsRepo.setNotificationBarStyle("DETAILED")
+                                            PrayerAppWidgetProvider.updateAllWidgets(context)
+                                            PrayerNotificationHelper.updatePersistentNotification(context)
+                                            Toast.makeText(context, if (lang.isRtl) "تم تفعيل النمط الكلاسيكي الأخضر ✓" else "Classic Emerald Enabled ✓", Toast.LENGTH_SHORT).show()
+                                        },
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = if (widgetTheme == "EMERALD") AqsaGold else Color(0xFF031411)
+                                        ),
+                                        modifier = Modifier.weight(1f)
+                                    ) {
+                                        Text(
+                                            text = if (lang.isRtl) "الأخضر الكلاسيكي" else "Classic Emerald",
+                                            color = if (widgetTheme == "EMERALD") Color.Black else Color.White,
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                    }
+
+                                    // Al-Huda Maroon
+                                    Button(
+                                        onClick = {
+                                            viewModel.settingsRepo.setWidgetThemeStyle("ALHUDA")
+                                            viewModel.settingsRepo.setNotificationBarStyle("ALHUDA")
+                                            PrayerAppWidgetProvider.updateAllWidgets(context)
+                                            PrayerNotificationHelper.updatePersistentNotification(context)
+                                            Toast.makeText(context, if (lang.isRtl) "تم تفعيل نمط مسجد الهُدى البني الفاخر ✓" else "Al-Huda Maroon Enabled ✓", Toast.LENGTH_SHORT).show()
+                                        },
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = if (widgetTheme == "ALHUDA") Color(0xFF8A2D35) else Color(0xFF3B0D12)
+                                        ),
+                                        border = BorderStroke(1.dp, AqsaGold),
+                                        modifier = Modifier.weight(1f)
+                                    ) {
+                                        Text(
+                                            text = if (lang.isRtl) "مسجد الهُدى (البني)" else "Al-Huda Maroon",
+                                            color = Color.White,
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                    }
                                 }
                             }
                         }

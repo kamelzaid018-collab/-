@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notif_collapsed_root"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_board_frame"
+    android:paddingHorizontal="8dp"
+    android:paddingVertical="4dp">
+
+    <!-- Left: Next Prayer Badge -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_salawat_badge"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="2dp"
+        android:layout_marginEnd="6dp">
+
+        <TextView
+            android:id="@+id/notif_collapsed_next_prayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🕌 الظهر: 11:51"
+            android:textColor="#FDE68A"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/notif_collapsed_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="متبقي 01:21"
+            android:textColor="#67E8F9"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Center: 5 Prayers Row -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:weightSum="5">
+
+        <!-- Fajr -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="1dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="فجر"
+                android:textColor="#94A3B8"
+                android:textSize="9sp" />
+            <TextView
+                android:id="@+id/notif_col_time_fajr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="04:52"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Dhuhr -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="1dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ظهر"
+                android:textColor="#FDE68A"
+                android:textSize="9sp" />
+            <TextView
+                android:id="@+id/notif_col_time_dhuhr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11:51"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Asr -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="1dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="عصر"
+                android:textColor="#FED7AA"
+                android:textSize="9sp" />
+            <TextView
+                android:id="@+id/notif_col_time_asr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="03:07"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Maghrib -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="1dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="مغرب"
+                android:textColor="#FECACA"
+                android:textSize="9sp" />
+            <TextView
+                android:id="@+id/notif_col_time_maghrib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="05:28"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Isha -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="1dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="عشاء"
+                android:textColor="#E9D5FF"
+                android:textSize="9sp" />
+            <TextView
+                android:id="@+id/notif_col_time_isha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="06:47"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Right: Location / Hijri -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|end"
+        android:orientation="vertical"
+        android:layout_marginStart="4dp">
+        <TextView
+            android:id="@+id/notif_col_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="القاهرة"
+            android:textColor="#E5C158"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/notif_col_hijri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="24 ربيع الآخر"
+            android:textColor="#CBD5E1"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+</LinearLayout>

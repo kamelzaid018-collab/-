@@ -26,12 +26,22 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             SoundHelper.ensureDefaultSounds(applicationContext)
             AlarmScheduler.scheduleAll(applicationContext)
+            com.example.notification.PrayerNotificationHelper.updatePersistentNotification(applicationContext)
+            com.example.widget.PrayerAppWidgetProvider.updateAllWidgets(applicationContext)
         }
 
         setContent {
             MyApplicationTheme {
                 MainAppContainer(viewModel = viewModel)
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch(Dispatchers.IO) {
+            com.example.notification.PrayerNotificationHelper.updatePersistentNotification(applicationContext)
+            com.example.widget.PrayerAppWidgetProvider.updateAllWidgets(applicationContext)
         }
     }
 }

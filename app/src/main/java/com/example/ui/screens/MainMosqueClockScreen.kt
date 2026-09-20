@@ -150,12 +150,11 @@ fun MainMosqueClockScreen(
                 }
             }
 
-            // 3. Horizontal Prayer Times Bar (All 6: الفجر، الشروق، الظهر، العصر، المغرب، العشاء)
+            // 3. Islamic Mihrab Arched Prayer Times Board (All 6: الفجر، الشروق، الظهر، العصر، المغرب، العشاء)
             item {
                 prayerTimes?.let { pt ->
-                    val middayType = if (isFriday) PrayerType.JUMUAH else PrayerType.DHUHR
                     Box(modifier = Modifier.padding(horizontal = 16.dp)) {
-                        PrayerTimesPillBar(
+                        IslamicMihrabPrayerBoard(
                             fajrTime = viewModel.formatTime(pt.fajrMillis, timeFormat, lang),
                             sunriseTime = viewModel.formatTime(pt.sunriseMillis, timeFormat, lang),
                             dhuhrTime = viewModel.formatTime(pt.dhuhrMillis, timeFormat, lang),
@@ -163,6 +162,8 @@ fun MainMosqueClockScreen(
                             maghribTime = viewModel.formatTime(pt.maghribMillis, timeFormat, lang),
                             ishaTime = viewModel.formatTime(pt.ishaMillis, timeFormat, lang),
                             nextPrayerType = nextType,
+                            countdownText = nextPrayerInfo?.countdownText,
+                            isFriday = isFriday,
                             lang = lang
                         )
                     }
